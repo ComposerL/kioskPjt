@@ -1,6 +1,8 @@
 
 <script th:fragment="home_js" type="text/javascript">
 
+let cart = {};
+
 $(document).ready(function() {
 	
 	init();
@@ -15,14 +17,33 @@ function init(){
 
 function eventsHandler(){
 	
+	// 메뉴 리스트에 특정 메뉴 클릭
 	$("#section_wrap ul.section_menu_list li").click(function(){
 		console.log("section_menu_list li click!!!");
+		let menu_no = $(this).index();
+		
 		let menu_img = $(this).children('img').attr('src');
 		let fc_menu_price = parseInt($(this).children('p.item_price').children('span').text());
-		addCartItem(menu_img,/* fc_menu_no,fcmc_no,fco_packaging, */fc_menu_price);
+		addCartItem(menu_img,/* fc_menu_no,fcmc_no,fco_packaging, */fc_menu_price,menu_no);
 	});
+	
+	//오더 전체 취소 버튼 클릭
+	$('#footer_wrap div.price_area_wrap div.order_cancel_btn').click(function(){
+		console.log("order_cancel_btn click!!!");
 		
+		removeCartItem();
+		totalPriceCalculator();
+	});
+			
 }
+
+
+function removeCartItem(){
+	console.log("removeCartItem()");
+	
+	$("ul.cart_area_items").empty();
+}
+
 
 function totalPriceCalculator(){
 	let total_menu_price = 0;
@@ -37,27 +58,27 @@ function totalPriceCalculator(){
 	$("div.total_price_text h4 span").text(total_menu_price);
 }
 
-//footer cart area
 
-function addCartItem(menu_img,/* fc_menu_no,fcmc_no,fco_packaging, */fc_menu_price){
+//footer cart area
+function addCartItem(menu_img,/* fc_menu_no,fcmc_no,fco_packaging, */fc_menu_price,menu_no){
 	console.log("addCartItem()");
 		
 	let fco_menu_cnt = 1;
 	let appendTag = "";
 	
-	appendTag = '<li>';
+	appendTag = '<li id="cart_item_'+menu_no+'">';
 		appendTag += '<img class="cart_area_cancel_btn" src="/img/home/cart_area_cancel_btn.png" alt="">';
 		appendTag += '<div class="cart_item_img"><img src="'+menu_img+'" alt=""></div>'
 		appendTag += '<div class="cart_item_select_wrap">';
 		
-			appendTag += '<div class="item_sub_btn"><img src="/img/home/cart_area_sub_btn.png" alt=""></div>';
+			appendTag += '<div class="item_sub_btn" ><img src="/img/home/cart_area_sub_btn.png" alt=""></div>';
 			appendTag += '<p class="fco_menu_cnt">'+fco_menu_cnt+'</p>';
-			appendTag += '<div class="item_add_btn"><img src="/img/home/cart_area_add_btn.png" alt=""></div>';
+			appendTag += '<div class="item_add_btn" menu_no='+menu_no+'><img src="/img/home/cart_area_add_btn.png" alt=""></div>';
 			/* appendTag += '<input type="hidden" name="fc_menu_no" value="'+fc_menu_no+'">';
 			appendTag += '<input type="hidden" name="fcmc_no" value="'+fcmc_no+'">';
 			appendTag += '<input type="hidden" name="fco_packaging" value="'+fco_packaging+'">'; */
 			appendTag += '<input type="hidden" name="fc_menu_price" value="'+fc_menu_price+'">';
-			appendTag += '<input type="hidden" name="fco_total_price" value="'+(fco_menu_cnt*fc_menu_price)+'">';
+			appendTag += '<input type="hidden" name="fco_total_price" value="'+fc_menu_price+'">';
 		appendTag += '</div>';
 	appendTag += '</li>';
 	
@@ -65,29 +86,36 @@ function addCartItem(menu_img,/* fc_menu_no,fcmc_no,fco_packaging, */fc_menu_pri
 	
 	totalPriceCalculator();
 	
-	//장바구니 특정 아이템 삭세 버튼 클릭
+	//장바구니 특정 아이템 삭제 버튼 클릭
 	$("#footer_wrap div.cart_area_wrap ul.cart_area_items li img.cart_area_cancel_btn").click(function(){
 		console.log("cart_area_cancel_btn click!!!");
 		$(this).parent('li').remove();
-		
-	});
-	//장바구니 특정 아이템 +버튼 클릭
-	$("#footer_wrap div.cart_area_wrap ul.cart_area_items li div.cart_item_select_wrap div.item_add_btn").click(function(){
-		console.log("item_add_btn click!!!");
-		let item_cnt = parseInt($(this).siblings('p.fco_menu_cnt').text());
-		
-		if(item_cnt >= 20){
-			item_cnt = 20;
-		}else{
-			item_cnt += 1;
-		}
-		$(this).siblings('p.fco_menu_cnt').text(item_cnt);
 		totalPriceCalculator();
 	});
+	//장바구니 특정 아이템 +버튼 클릭
+	$("#cart_item_" + menu_no + " div.cart_item_select_wrap div.item_add_btn").click(function(e){
+		console.log("item_add_btn click!!!");
+							
+			let item_cnt = parseInt($(this).siblings('p.fco_menu_cnt').text());
+			let fc_menu_price = parseInt($(this).siblings('input[name="fc_menu_price"]').val());
+			
+			if(item_cnt >= 20){
+				item_cnt = 20;
+			}else{
+				item_cnt += 1;
+			}
+			$(this).siblings('p.fco_menu_cnt').text(item_cnt);
+			
+			$(this).siblings('input[name="fco_total_price"]').val(item_cnt*fc_menu_price);
+			
+			totalPriceCalculator();
+		
+	});
 	//장바구니 특정 아이템 -버튼 클릭
-	$("#footer_wrap div.cart_area_wrap ul.cart_area_items li div.cart_item_select_wrap div.item_sub_btn").click(function(){
+	$("#cart_item_" + menu_no + " div.cart_item_select_wrap div.item_sub_btn").click(function(){
 		console.log("item_sub_btn click!!!");
 		let item_cnt = parseInt($(this).siblings('p.fco_menu_cnt').text());
+		let fc_menu_price = parseInt($(this).siblings('input[name="fc_menu_price"]').val());
 		
 		if(item_cnt <= 1){
 			item_cnt = 1;
@@ -95,8 +123,12 @@ function addCartItem(menu_img,/* fc_menu_no,fcmc_no,fco_packaging, */fc_menu_pri
 			item_cnt -= 1;
 		}
 		$(this).siblings('p.fco_menu_cnt').text(item_cnt);
+		
+		$(this).siblings('input[name="fco_total_price"]').val(item_cnt*fc_menu_price);
+		
 		totalPriceCalculator();
 	});
+			
 	//결제하기 버튼 클릭
 	/* $("#footer_wrap div.price_area_wrap div.payment_btn").click(function(){
 		console.log("payment_btn click!!!");
@@ -110,6 +142,8 @@ function addCartItem(menu_img,/* fc_menu_no,fcmc_no,fco_packaging, */fc_menu_pri
 	}); */
 	
 }
+
+
 
 
 

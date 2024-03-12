@@ -105,6 +105,7 @@ public class FranchiseeOrderService {
 	public Map<String, Object> getCategory() {
 		
 			log.info("getCategoryser()");
+			
 
 			Map<String, Object> cateDtos = new HashMap<>();
 
