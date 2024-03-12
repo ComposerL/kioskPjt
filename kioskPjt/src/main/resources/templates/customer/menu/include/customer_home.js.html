@@ -1,0 +1,564 @@
+<script th:fragment="js" type="text/javascript">
+	$(document).ready(function() {
+		// 페이지가 로드되면 카테고리와 메뉴들을 가져오는 함수 호출
+		ajax_getCategorie_menu();
+		ajax_get_all_menus();
+		
+		let previousImageUrl;
+		
+		// 썸네일 이미지 미리보기
+		/*
+		  $('#file').change(function () {
+		        let reader = new FileReader();
+		        reader.onload = function (e) {
+		        	previousImageUrl = $('#img_section').attr('src');
+		        	$('#img_section').attr('src', e.target.result).show();
+		        }
+		        reader.readAsDataURL(this.files[0]);
+		    })
+		    
+		 // 리셋버튼 누르면 이미지 변경 전으로 돌아가기
+		
+		    $('.modify_menu_wrap input[type="reset"]').click(function () {
+		        $('#img_section').attr('src', previousImageUrl).show();
+		        
+		   */
+		   
+		    });
+
+	// 카테고리 버튼을 클릭하면 해당 카테고리의 메뉴를 출력하는 함수 호출
+	$(document).on('click', '.nav_menu_wrap li', function(e) {
+		e.preventDefault(); // 기본 이벤트 방지
+		ajax_get_menus_by_category(this.getAttribute('value')); // 해당 카테고리의 메뉴 출력 함수 호출
+	})
+
+	var isCategoryMenuLoaded = false;
+
+	$(document).on('click', '.menu_item_wrap', function(e) {
+		let fc_menu_no = $(this).find('.fc_menu_no').text();
+		console.log(fc_menu_no);
+		ajax_getSelectMenuInfo(fc_menu_no);
+		$('.myModal').css('display', 'block');
+
+		if (!isCategoryMenuLoaded) {
+			ajax_getCategorie_menu();
+			isCategoryMenuLoaded = true;
+
+		}
+
+	})
+	
+	$(document).on('click', '.modify_menu_modal input[value="취소"]', function(e) {
+		$('.modal_wrap').css('display', 'none');	
+	})
+
+	$(document).on('click', '.modify_menu_modal', function(e) {
+		e.stopPropagation();
+	})
+
+	function removeAdminMenuList() {
+		console.log('removeAdminMenuList()');
+		$('#section_wrap div.admin_menu_list_wrap table tr').remove();
+	}
+
+	function removePageNo() {
+		console.log('removePageNo()');
+		$('#section_wrap div.page_no_wrap').empty();
+	}
+
+	function removeCategory() {
+		console.log('removeCategory()');
+		$('#menu_category_select').empty();
+		 $('.nav_menu_wrap').empty(); // 카테고리를 추가하기 전에 해당 영역 비우기
+	}
+	
+	
+	// 모든 카테고리 가져오기 메뉴리스트 + 모달창 (기존)
+	
+	/*
+	function ajax_getCategorie_menu() {
+		$
+				.ajax({
+					url : '/admin/menu/getCategory',
+					method : 'post',
+					contentType : 'application/json; charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+						let cateDtos = data.categoryDtos;
+						for (let i = 0; i < cateDtos.length; i++) {
+							
+							removeCategory();
+							
+							// 카테고리 버튼 추가
+
+							// $('.menu_category_change_wrap')
+							//		.append(
+							//				'<input type="hidden" id="csrfToken" th:value="${_csrf.token}"/>');
+							
+							$('.menu_category_change_wrap').append(
+									'<a href="#" value="' + cateDtos[i].fcmc_no + '">'
+											+ cateDtos[i].fcmc_name + '</a>');
+
+							
+							// $('#menu_category_select').append(
+							//		'<option value="' + cateDtos[i].fcmc_no + '">'
+							//				+ cateDtos[i].fcmc_name
+							//				+ '</option>');
+							
+
+							
+							for (let i = 0; i < cateDtos.length; i++) {
+								// 카테고리 버튼 추가
+								let selectedItemNo = 5;
+								let tag = '<option value="' + cateDtos[i].fcmc_no + '" ';
+								
+								
+								if (cateDtos[i].fcmc_no == selectedItemNo) {
+									tag += 'selected ';	
+								}
+								
+								tag += '>';
+								tag += cateDtos[i].fcmc_name
+								tag += '</option>';
+								
+							
+								$('#menu_category_select').append(tag); 
+								
+								
+								// $('#menu_category_select').append(
+								//		'<option value="' + cateDtos[i].fcmc_no + '">'
+								//				+ cateDtos[i].fcmc_name + '</option>');
+							}
+
+							isCategoryMenuLoaded = true;
+							
+							
+						}
+					},
+					error : function(data) {
+						console.log('ajax error!!');
+					}
+				});
+	}
+	*/
+	
+	// 모든 카테고리 가져오기 메뉴리스트 + 모달창 (수정)
+	
+	function ajax_getCategorie_menu(fcmc_no) {
+		$
+				.ajax({
+					url : '/admin/menu/getCategory',
+					method : 'post',
+					contentType : 'application/json; charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+						let cateDtos = data.categoryDtos;
+							removeCategory();
+						for (let i = 0; i < cateDtos.length; i++) {
+							
+							
+							// 카테고리 버튼 추가 (메뉴리스트)
+
+							$('.nav_menu_wrap').append(
+									'<li value="' + cateDtos[i].fcmc_no + '">'
+											+ cateDtos[i].fcmc_name + '</a>');
+							
+								// 카테고리 버튼 추가 (모달창)
+								
+								/*
+								let selectedItemNo = fcmc_no;
+								let tag = '<option value="' + cateDtos[i].fcmc_no + '" ';
+								
+								if (cateDtos[i].fcmc_no == selectedItemNo) {
+									tag += 'selected ';	
+								}
+								
+								tag += '>';
+								tag += cateDtos[i].fcmc_name
+								tag += '</option>';
+							
+								$('#menu_category_select').append(tag); 
+								*/
+
+							isCategoryMenuLoaded = true;
+							
+						}
+					},
+					error : function(data) {
+						console.log('ajax error!!');
+					},
+					complete : function(){
+						console.log('ajax complete!!');
+					
+					}
+				});
+	}	
+
+	// 모든 메뉴 가져오기 (기존)
+	
+	/*
+	
+	function ajax_get_all_menus() {
+		$.ajax({
+			url : '/admin/menu/getMenus',
+			method : 'post',
+			contentType : 'application/json; charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				// 메뉴 출력 함수 호출
+				renderMenus(data.menusDtos);
+			},
+			error : function(data) {
+				console.log('ajax error!!');
+			}
+		});
+	}
+
+	*/
+	
+	// 모든 메뉴 가져오기 (페이지네이션 추가)
+	
+	function ajax_get_all_menus(pageNum = 1) {
+		console.log("ajax_get_all_menus");
+		$.ajax({
+			url : '/admin/menu/getMenus',
+			method : 'get',
+			data: 'page='+pageNum,
+			contentType : 'application/json; charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				console.log('ajax success!!');
+				
+				let adminMenuDtos = data.adminMenuDtos;
+				let adminMenuListPageDto = data.adminMenuListPageDto;
+				let appendTag = '';
+				let itemsPerRow = 4; // 한 행당 아이템 개수
+				
+				removeAdminMenuList();
+				removePageNo();
+				
+				for (let i = 0; i < adminMenuDtos.length; i += itemsPerRow) {
+					appendTag += '<tr>'; // 새로운 행을 시작합니다.
+				for (let j = 0; j < itemsPerRow; j++) {
+					let index = i + j; // 현재 아이템 인덱스
+					if (index < adminMenuDtos.length) {
+						appendTag += '<td>';
+						appendTag += '<div class="menu_item_wrap">';
+						appendTag += '<ul>';
+						appendTag += '<li class="fc_menu_no">';
+						appendTag += adminMenuDtos[index].fc_menu_no;
+						appendTag += '</li>';
+						appendTag += '<li class="fc_menu_img_name">';
+						appendTag += '<img src="http://14.42.124.93:8091/kioskUploadImg/' + adminMenuDtos[index].fc_menu_img_name + '">';
+						appendTag += '</li>';
+						appendTag += '<li class="fc_menu_name">';
+						appendTag += adminMenuDtos[index].fc_menu_name;
+						appendTag += '</li>';
+						appendTag += '<li class="fc_menu_price">';
+						appendTag += adminMenuDtos[index].fc_menu_price;
+						appendTag += '</li>';
+						appendTag += '</ul>';
+						appendTag += '</div>';
+						appendTag += '</td>';
+					} else {
+						appendTag += '<td></td>'; // 남은 셀을 빈 셀로 채웁니다.
+					}
+				}
+				appendTag += '</tr>'; // 행을 마감합니다.
+			
+				$('#admin_menu_list').html(appendTag);
+			}
+				
+				if(adminMenuListPageDto.page <= 1){
+	                $('#section_wrap div.page_no_wrap').append(`<span >&#8810;</span>`);
+	            	$('#section_wrap div.page_no_wrap').append("<span >[이전]</span>");
+	            }else{
+	            	$('#section_wrap div.page_no_wrap').append(`<a style='font-weight: bold' href="#none" class="pre_page_btn" page_num='1'>&#8810;</a>`);
+	            	$('#section_wrap div.page_no_wrap').append(`<a style='font-weight: bold' href="#none" class="pre_page_btn" page_num='${(adminMenuListPageDto.page-1)}'>[이전]</a>`);
+	            }	
+				
+				for(let i = adminMenuListPageDto.startPage; i <= adminMenuListPageDto.endPage; i++){
+	            	let appendPageNum = '';
+	            	appendPageNum += "<span class='page_num_wrap'>";
+	            	if(i === adminMenuListPageDto.page){
+	            		appendPageNum += "<b style='color:#555'>"+i+"</b>";
+	            	}else{
+	            		appendPageNum += `<a href="#none" class="page_num_btn" page_num='${i}'>${i}</a>`;
+	            	}
+	            	appendPageNum += "</span>";
+	            	$('#section_wrap div.page_no_wrap').append(appendPageNum); 
+	            }
+				
+				 if(adminMenuListPageDto.page >= adminMenuListPageDto.maxPage){
+		            	$('#section_wrap div.page_no_wrap').append("<span>[다음]</span>");
+		            	$('#section_wrap div.page_no_wrap').append(`<span>&#8811;</span>`);
+
+		            }else{
+		            	$('#section_wrap div.page_no_wrap').append(`<a style='font-weight: bold' href="#none" class="next_page_btn" page_num='${(adminMenuListPageDto.page+1)}'>[다음]</a>`);
+		            	$('#section_wrap div.page_no_wrap').append(`<a style='font-weight: bold' href="#none" class="next_page_btn" page_num='${(adminMenuListPageDto.maxPage)}'>&#8811;</a>`);
+		            }
+				
+			},
+		
+			error : function(data) {
+				console.log('ajax error!!');
+			},
+			  complete: function(){
+		        	console.log('ajax complete!!');
+		        	
+		        	$('#section_wrap div.page_no_wrap .next_page_btn').click(function(){
+		            	console.log('nextPageBtnClick()')
+		            	
+		            	ajax_get_all_menus(this.getAttribute('page_num'));
+		            });
+		        	
+		        	$('#section_wrap div.page_no_wrap .pre_page_btn').click(function(){
+		            	console.log('prePageBtnClick()')
+		            	
+		            	ajax_get_all_menus(this.getAttribute('page_num'));
+		            });
+		        	
+		        	$('#section_wrap div.page_no_wrap .page_num_btn').click(function(){
+		            	console.log('pageNumBtnClick()')
+		            	
+		            	ajax_get_all_menus(this.getAttribute('page_num'));
+		            });
+		        	
+		        }
+		});
+	}
+	
+	// 카테고리에 따른 메뉴 가져오기 (기존)
+	
+	/*
+	
+	function ajax_get_menus_by_category(fcmc_no,) {
+		console.log('ajax_get_menus_by_category()');
+		console.log(fcmc_no);
+
+		$.ajax({
+			url : '/admin/menu/getMenusByCategory',
+			method : 'post',
+			/*  beforeSend: function(xhr) {
+			     xhr.setRequestHeader("X-CSRF-TOKEN", $('#csrfToken').val());
+			 }, 
+			data : ({
+				'fcmc_no' : fcmc_no,
+			}),
+			// contentType: 'application/json; charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				console.log('ajsx sucess!!')
+				
+				let adminMenuListPageDto = data.adminMenuListPageDto;
+				
+				removeAdminMenuList();
+				removePageNo();				
+				
+				// 메뉴 출력 함수 호출
+				renderMenus(data.adminMenusDtos);
+				
+			}
+			error : function(data) {
+				console.log('ajax error!!');
+			}
+		
+		});
+	}
+	
+	*/
+	
+	
+	// 카테고리에 따른 메뉴 가져오기 (페이지네이션 추가)
+	
+	function ajax_get_menus_by_category(fcmc_no, pageNum = 1) {
+		console.log('ajax_get_menus_by_category()');
+		console.log(fcmc_no);
+
+		$.ajax({
+			url : '/admin/menu/getMenusByCategory',
+			method : 'get',
+			data : ({
+				'fcmc_no' : fcmc_no,
+				'page' : pageNum,
+			}),
+			// contentType: 'application/json; charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				console.log('ajsx sucess!!')
+				
+				let adminMenuDtos = data.adminMenuDtos;
+				let adminMenuListPageDto = data.adminMenuListPageDto;
+				let appendTag = '';
+				let itemsPerRow = 4; // 한 행당 아이템 개수
+				
+				removeAdminMenuList();
+				removePageNo();
+				
+				for (let i = 0; i < adminMenuDtos.length; i += itemsPerRow) {
+					appendTag += '<tr>'; // 새로운 행을 시작합니다.
+				for (let j = 0; j < itemsPerRow; j++) {
+					let index = i + j; // 현재 아이템 인덱스
+					if (index < adminMenuDtos.length) {
+						appendTag += '<td>';
+						appendTag += '<div class="menu_item_wrap">';
+						appendTag += '<ul>';
+						appendTag += '<li class="fc_menu_no">';
+						appendTag += adminMenuDtos[index].fc_menu_no;
+						appendTag += '</li>';
+						appendTag += '<li class="fc_menu_img_name">';
+						appendTag += '<img src="http://14.42.124.93:8091/kioskUploadImg/' + adminMenuDtos[index].fc_menu_img_name + '">';
+						appendTag += '</li>';
+						appendTag += '<li class="fc_menu_name">';
+						appendTag += adminMenuDtos[index].fc_menu_name;
+						appendTag += '</li>';
+						appendTag += '<li class="fc_menu_price">';
+						appendTag += adminMenuDtos[index].fc_menu_price;
+						appendTag += '</li>';
+						appendTag += '</ul>';
+						appendTag += '</div>';
+						appendTag += '</td>';
+					} else {
+						appendTag += '<td></td>'; // 남은 셀을 빈 셀로 채웁니다.
+					}
+				}
+				appendTag += '</tr>'; // 행을 마감합니다.
+			
+				$('#admin_menu_list').html(appendTag);
+			}
+				
+				if(adminMenuListPageDto.page <= 1){
+	                $('#section_wrap div.page_no_wrap').append(`<span >&#8810;</span>`);
+	            	$('#section_wrap div.page_no_wrap').append("<span >[이전]</span>");
+	            }else{
+	            	$('#section_wrap div.page_no_wrap').append(`<a style='font-weight: bold' href="#none" class="pre_page_btn" page_num='1'>&#8810;</a>`);
+	            	$('#section_wrap div.page_no_wrap').append(`<a style='font-weight: bold' href="#none" class="pre_page_btn" page_num='${(adminMenuListPageDto.page-1)}'>[이전]</a>`);
+	            }	
+				
+				for(let i = adminMenuListPageDto.startPage; i <= adminMenuListPageDto.endPage; i++){
+	            	let appendPageNum = '';
+	            	appendPageNum += "<span class='page_num_wrap'>";
+	            	if(i === adminMenuListPageDto.page){
+	            		appendPageNum += "<b style='color:#555'>"+i+"</b>";
+	            	}else{
+	            		appendPageNum += `<a href="#none" class="page_num_btn" page_num='${i}'>${i}</a>`;
+	            	}
+	            	appendPageNum += "</span>";
+	            	$('#section_wrap div.page_no_wrap').append(appendPageNum); 
+	            }
+				
+				 if(adminMenuListPageDto.page >= adminMenuListPageDto.maxPage){
+		            	$('#section_wrap div.page_no_wrap').append("<span>[다음]</span>");
+		            	$('#section_wrap div.page_no_wrap').append(`<span>&#8811;</span>`);
+
+		            }else{
+		            	$('#section_wrap div.page_no_wrap').append(`<a style='font-weight: bold' href="#none" class="next_page_btn" page_num='${(adminMenuListPageDto.page+1)}'>[다음]</a>`);
+		            	$('#section_wrap div.page_no_wrap').append(`<a style='font-weight: bold' href="#none" class="next_page_btn" page_num='${(adminMenuListPageDto.maxPage)}'>&#8811;</a>`);
+		            }
+				 
+			},
+		
+			error : function(data) {
+				console.log('ajax error!!');
+			},
+			  complete: function(){
+		        	console.log('ajax complete!!');
+		        	
+		        	$('#section_wrap div.page_no_wrap .next_page_btn').click(function(){
+		            	console.log('nextPageBtnClick()')
+		            	
+		            	ajax_get_menus_by_category(fcmc_no, this.getAttribute('page_num'));
+		            });
+		        	
+		        	$('#section_wrap div.page_no_wrap .pre_page_btn').click(function(){
+		            	console.log('prePageBtnClick()')
+		            	
+		            	ajax_get_menus_by_category(fcmc_no, this.getAttribute('page_num'));
+		            });
+		        	
+		        	$('#section_wrap div.page_no_wrap .page_num_btn').click(function(){
+		            	console.log('pageNumBtnClick()')
+		            	
+		            	ajax_get_menus_by_category(fcmc_no, this.getAttribute('page_num'));
+		            });
+		        	
+		        }
+		});
+	}
+
+	// 각각의 메뉴 클릭하면 해당 메뉴의 모달 창에 정보 뿌려지게
+	function ajax_getSelectMenuInfo(fc_menu_no) {
+
+		console.log('ajax_getSelectMenuInfo()');
+		console.log(fc_menu_no);
+
+		$.ajax({
+			url : '/admin/menu/getSelectMenuInfo',
+			method : 'post',
+			data : {
+				'fc_menu_no' : fc_menu_no
+			},
+			dataType : 'json',
+			success : function(data) {
+				console.log('ajax sucess!!');
+
+				if (data == null) {
+					console.log('get data fail!!')
+
+				} else {
+					console.log('get data success!!')
+
+					$("div.header_sec img.img_section").attr(
+							"src",
+							"http://14.42.124.93:8091/kioskUploadImg/"
+									+ data.fc_menu_img_name);
+
+					/*
+					$("div.modify_menu_wrap input[name='fc_menu_no']").attr(
+							"value", `${data.fc_menu_no}`);
+					
+					
+					$("div.modify_menu_wrap select[name='fcmc_no']").val(data.fcmc_no).prop('selected', true);
+					
+					console.log(`${data.fcmc_no}`);
+					*/
+					
+					/*
+					$("div.header_sec p.menu_name").attr(
+							"value", `${data.fc_menu_name}`);
+					*/
+					
+					$("div.header_sec p.menu_no").text(data.fc_menu_no);
+					
+					$("div.header_sec p.menu_name").text(data.fc_menu_name);
+					
+					$('div.modal_header p.menu_price').text(data.fc_menu_price);
+					
+					$('div.modal_header p.menu_price').attr("fc_menu_price", data.fc_menu_price);
+					
+					// fc_menu_price='"+data.fc_menu_price+"'"
+					
+					// $("div.modify_menu_wrap input[name='fc_menu_price']").attr(
+					//		"value", `${data.fc_menu_price}`);
+					
+					$("div.modify_menu_wrap textarea[name='fc_menu_text']")
+					.text(data.fc_menu_text);
+
+					ajax_getCategorie_menu(`${data.fcmc_no}`);
+					
+				}
+
+			},
+			error : function(data) {
+				console.log('ajax error!!');
+
+			}
+
+		});
+
+	}
+	
+	
+	
+	
+</script>

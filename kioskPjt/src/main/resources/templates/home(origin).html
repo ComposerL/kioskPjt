@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title th:replace="~{/include/include_title.html::title}"></title>
+
+<link rel="stylesheet" th:href="@{/css/customer/common.css}">
+<link rel="stylesheet" th:href="@{/css/customer/header.css}">
+<link rel="stylesheet" th:href="@{/css/customer/nav.css}">
+<link rel="stylesheet" th:href="@{/css/customer/footer.css}">
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script type="text/javascript" th:replace="~{include/home_js.html::home_js}"></script>
+<style>
+
+        /* customer section.css */
+        #section_wrap {
+            width: 100%;
+            height: 770px;
+        }
+        #section_wrap ul.section_menu_list {
+            display: flex;
+            flex-wrap: wrap;
+            width: 936px;
+            margin:0 auto;
+        }
+        #section_wrap ul.section_menu_list li {
+            width: 225px;
+            height: 240px;
+            margin-right: 12px;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #section_wrap ul.section_menu_list li:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+        #section_wrap ul.section_menu_list li:nth-child(4n) {
+            margin-right: 0px;
+        }
+        #section_wrap ul.section_menu_list li img {
+            height: 180px;
+        }
+        #section_wrap ul.section_menu_list li p.item_name {
+            text-align: left;
+        }
+        #section_wrap ul.section_menu_list li p.item_price {
+            text-align: right;
+        }
+        #section_wrap div.section_bottom_btn_wrap{
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+        }
+        #section_wrap div.section_bottom_btn_wrap div.section_bottom_pre_btn {
+            height: 100%;
+            width: 50px;
+            cursor: pointer;
+        }
+        #section_wrap div.section_bottom_btn_wrap div.section_bottom_next_btn {
+            height: 100%;
+            width: 50px;
+            cursor: pointer;
+        }
+        #section_wrap div.section_bottom_btn_wrap img {
+            height: 40px;
+            margin-top: 5px;
+        }
+        /* customer section.css END*/
+ 
+</style>
+
+
+</head>
+<body>
+
+	this is home
+	
+	<a th:href="@{/franchisee/home}">프랜차이즈홈</a>
+	<a th:href="@{/admin/home}">어드민홈</a>
+	<div id="wrap">
+	
+        <header th:replace="~{include/customer_header_nav_footer.html::customer_header}">
+        </header>
+        
+        <nav th:replace="~{include/customer_header_nav_footer.html::customer_nav}">           
+        </nav>       
+        
+        <section>
+            <div id="section_wrap">
+            
+                <ul class="section_menu_list">
+                
+                    <li>
+                        <img src="/img/home/ice_ame.png" alt="ice_americano">
+                        <p class="item_name">아메리카노</p>
+                        <p class="item_price"><span>2000</span>원</p>
+                    </li>
+                    
+                    <li>
+                        <img src="/img/home/ice_latte.png" alt="ice_latte">
+                        <p class="item_name">카페라떼</p>
+                        <p class="item_price"><span>3000</span>원</p>
+                    </li> 
+                                    
+                </ul>
+                
+                <div class="section_bottom_btn_wrap">
+                    <div class="section_bottom_pre_btn">
+                        <img src="/img/home/bottom_left_arrow.png" alt="left_arrow">
+                    </div>
+                    <div class="section_bottom_next_btn">
+                        <img src="/img/home/bottom_right_arrow.png" alt="right_arrow">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer th:replace="~{include/customer_header_nav_footer.html::customer_footer}">            
+        </footer>
+    </div>
+
+</body>
+</html>

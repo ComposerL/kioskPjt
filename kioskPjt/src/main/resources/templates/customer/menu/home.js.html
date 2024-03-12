@@ -1,0 +1,22 @@
+<script th:fragment="js" type="text/javascript">
+
+const numberElement = document.getElementById('number');
+
+function add() {
+    
+    currentNumber++;
+    ubdateNumber();
+    console.log(currentNumber);
+}
+
+function min() {
+    currentNumber--;
+    ubdateNumber();
+}
+
+function ubdateNumber() {
+    numberElement.textContent = currentNumber;
+}
+
+
+</script>

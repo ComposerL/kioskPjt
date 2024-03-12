@@ -14,6 +14,7 @@ public class HomeController {
 		log.info("home()");
 	
 		String nextPage = "/home";
+//		String nextPage = "/home(origin)";
 		
 		return nextPage;
 		
