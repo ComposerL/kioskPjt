@@ -20,8 +20,7 @@ function eventsHandler(){
 	// 메뉴 리스트에 특정 메뉴 클릭
 	$("#section_wrap ul.section_menu_list li").click(function(){
 		console.log("section_menu_list li click!!!");
-		let menu_no = $(this).index();
-		
+		let menu_no = $(this).index();		
 		let menu_img = $(this).children('img').attr('src');
 		let fc_menu_price = parseInt($(this).children('p.item_price').children('span').text());
 		addCartItem(menu_img,/* fc_menu_no,fcmc_no,fco_packaging, */fc_menu_price,menu_no);

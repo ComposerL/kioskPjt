@@ -4,7 +4,7 @@ $(document).ready(function() {
         $("#myModal").fadeIn();
     });
 
-    $(".close, #myModal").click(function(e) {
+     $(".close, #myModal").click(function(e) {
         if (e.target === this) {
             $("#myModal").fadeOut();
             resetValues();
@@ -51,6 +51,18 @@ function menuPrice() {
 	return menuPrice;
 }
 
+	// 초기화 함수
+    function resetValues() {
+        $("p.menu_number").text("1"); // 메뉴 수량 초기화
+        $("p.shot_number").text("0"); // 샷 수량 초기화
+        $("p.pur_number").text("0"); // 퍼 수량 초기화
+        const shotPrice = 500.0000;
+        const purPrice = 1000.0000;
+        $(".menu_price").text(menuPrice.toLocaleString('ko-KR')); // 메뉴 가격 초기화
+        $(".shot_price").text(shotPrice.toLocaleString('ko-KR')); // 샷 가격 초기화
+        $(".pur_price").text(purPrice.toLocaleString('ko-KR')); // 퍼 가격 초기화
+        
+    }
 
 function menuSelectHandler() {
     const shotPrice = 500;
@@ -90,20 +102,10 @@ function menuSelectHandler() {
     });
 
 
-	// 초기화 함수
-    function resetValues() {
-        $("p.menu_number").text("1"); // 메뉴 수량 초기화
-        $("p.shot_number").text("0"); // 샷 수량 초기화
-        $("p.pur_number").text("0"); // 퍼 수량 초기화
-        const shotPrice = 500.0000;
-        const purPrice = 1000.0000;
-        $(".menu_price").text(menuPrice.toLocaleString('ko-KR')); // 메뉴 가격 초기화
-        $(".shot_price").text(shotPrice.toLocaleString('ko-KR')); // 샷 가격 초기화
-        $(".pur_price").text(purPrice.toLocaleString('ko-KR')); // 퍼 가격 초기화
-    }
+
 
     // 초기화
-    resetValues();
+    // resetValues();
 
     // 메뉴 수량 버튼
     $(".menu_add").off("click").on("click", function() {
