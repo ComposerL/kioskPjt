@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title th:replace="~{/include/include_title.html::title}"></title>
+<title th:replace="~{include/include_title.html::title}"></title>
 
 <link rel="stylesheet" th:href="@{/css/franchisee/common.css}">
 <link rel="stylesheet" th:href="@{/css/franchisee/franchisee_include.css}">
@@ -16,11 +16,11 @@
 
 	<div id="wrap">
 
-		<header th:replace="~{/franchisee/include/franchisee_include.html::franchisee_header}">
+		<header th:replace="~{franchisee/include/franchisee_include.html::franchisee_header}">
 		</header>
 		
 		
-		<nav th:replace="~{/franchisee/include/franchisee_include.html::franchisee_nav}">
+		<nav th:replace="~{franchisee/include/franchisee_include.html::franchisee_nav}">
 		</nav>
 		
 		
@@ -28,14 +28,14 @@
 		
 			<div id="section_wrap">
 			
-				<div th:replace="~{/franchisee/include/franchisee_include.html::section_menu_wrap}">
+				<div th:replace="~{franchisee/include/franchisee_include.html::section_menu_wrap}">
 				</div>
 
 				<div class="pos_section_main">
 					<div class="pos_section_info_wrap">
 
 						<div class="word">
-							<img src="/img/main/header_logo.JPG">
+							<img src="/img/main/header_logo.jpg">
 						</div>
 						
 						<div class="create_form">
@@ -85,7 +85,7 @@
 		</section>
 		
 		
-		<footer th:replace="~{/franchisee/include/franchisee_include.html::franchisee_footer}">
+		<footer th:replace="~{franchisee/include/franchisee_include.html::franchisee_footer}">
 		</footer>
 	
 	

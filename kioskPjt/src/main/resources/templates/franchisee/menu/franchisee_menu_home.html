@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title th:replace="~{/include/include_title.html::title}"></title>
+<title th:replace="~{include/include_title.html::title}"></title>
 
 
 <link rel="stylesheet" th:href="@{/css/franchisee/common.css}">
@@ -17,14 +17,14 @@
 
 <div id="wrap">
 	
-	<nav th:replace="~{/franchisee/include/franchisee_include.html::franchisee_nav}">
+	<nav th:replace="~{franchisee/include/franchisee_include.html::franchisee_nav}">
 	</nav>
 
 	<section>
 
 		<div id="section_wrap">
 
-			<div th:replace="~{/franchisee/include/franchisee_include.html::section_menu_wrap}">
+			<div th:replace="~{franchisee/include/franchisee_include.html::section_menu_wrap}">
 			</div>
 				
 				<div class="word">MENU HOME</div>
@@ -40,7 +40,7 @@
 	</section>
 
 	<footer
-		th:replace="~{/franchisee/include/franchisee_include.html::franchisee_footer}">
+		th:replace="~{franchisee/include/franchisee_include.html::franchisee_footer}">
 
 	</footer>
 	

@@ -13,7 +13,7 @@ public class FranchiseeHomeController {
 	public String franchiseeHome() {
 		log.info("franchiseeHome()");
 	
-		String nextPage = "/franchisee/franchisee_home";
+		String nextPage = "franchisee/franchisee_home";
 		
 		return nextPage;
 		

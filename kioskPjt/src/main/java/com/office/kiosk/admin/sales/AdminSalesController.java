@@ -34,7 +34,7 @@ public class AdminSalesController {
 	public String salesList() {
 		log.info("salesList()");
 		
-		String nextPage = "/admin/sales/admin_sales_list";
+		String nextPage = "admin/sales/admin_sales_list";
 		
 		return nextPage;
 		
@@ -106,7 +106,7 @@ public class AdminSalesController {
 	public String storeSalesList() {
 		log.info("storeSalesList()");
 		
-		String nextPage = "/admin/sales/admin_store_sales_list";
+		String nextPage = "admin/sales/admin_store_sales_list";
 		
 		return nextPage;
 		
@@ -194,7 +194,7 @@ public class AdminSalesController {
 	public String franchiseeSalesList() {
 		log.info("franchiseeSalesList()");
 		
-		String nextPage = "/admin/sales/admin_franchisee_sales_list";
+		String nextPage = "admin/sales/admin_franchisee_sales_list";
 		
 		return nextPage;
 		

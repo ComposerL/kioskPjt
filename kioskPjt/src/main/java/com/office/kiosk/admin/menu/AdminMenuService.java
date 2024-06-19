@@ -161,16 +161,7 @@ public class AdminMenuService {
 		log.info("uploadFile()");
 		log.info("file: " + file);
 
-		// RestTemplate
-
-		// RestTemplate 객체생성
-//		RestTemplate restTemplate = new RestTemplate();
-
-		System.out.println("file: " + file);
-
-		// RestTemplate
-
-		// RestTemplate 객체생성
+		// RestTemplate 객체생성 //상단에 @Autowired 생성함
 		// RestTemplate restTemplate = new RestTemplate();
 
 		// Request Header 설정
@@ -185,7 +176,8 @@ public class AdminMenuService {
 		HttpEntity<MultiValueMap<String, Object>> responseEntity = new HttpEntity<>(requestBody, headers);
 
 		// API 호출
-		String severURL = "http://14.42.124.93:8091/upload_file";
+//		String severURL = "http://14.42.124.93:8091/upload_file";
+		String severURL = "http://localhost:8091/upload_file"; //local
 		ResponseEntity<String> response = restTemplate.postForEntity(severURL, responseEntity, String.class);
 
 		return response;

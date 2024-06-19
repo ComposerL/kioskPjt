@@ -31,7 +31,7 @@ public class FranchiseeSalesController {
 	public String getSalesInfo() {
 		log.info("getSalesInfo()");
 		
-		String nextPage = "/franchisee/sales/franchisee_sales_list";
+		String nextPage = "franchisee/sales/franchisee_sales_list";
 		
 		return nextPage;
 	}

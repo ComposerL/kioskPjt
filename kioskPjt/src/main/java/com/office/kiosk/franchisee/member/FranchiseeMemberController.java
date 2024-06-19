@@ -32,7 +32,7 @@ public class FranchiseeMemberController {
 	public String createFranchiseeAccountForm() {
 		log.info("createFranchiseeAccountForm()");
 
-		String nextPage = "/franchisee/member/create_franchisee_account_form";
+		String nextPage = "franchisee/member/create_franchisee_account_form";
 
 		return nextPage;
 
@@ -45,12 +45,12 @@ public class FranchiseeMemberController {
 	public String createFranchiseeAccountConfirm(FranchiseeMemberDto memberDto, Model model) {
 		log.info("createFranchiseeAccountConfirm()");
 
-		String nextPage = "/franchisee/member/create_franchisee_account_ok";
+		String nextPage = "franchisee/member/create_franchisee_account_ok";
 
 		int result = franchiseeMemberService.createFranchiseeAccountConfirm(memberDto);
 
 		if (result <= 0)
-			nextPage = "/franchisee/member/create_franchisee_account_ng";
+			nextPage = "franchisee/member/create_franchisee_account_ng";
 
 		return nextPage;
 
@@ -63,7 +63,7 @@ public class FranchiseeMemberController {
 	public String franchiseeLoginForm() {
 		log.info("FranchiseeLoginForm()");
 
-		String nextPage = "/franchisee/member/franchisee_login_form";
+		String nextPage = "franchisee/member/franchisee_login_form";
 
 		return nextPage;
 
@@ -101,7 +101,7 @@ public class FranchiseeMemberController {
 	public String franchiseeLoginSuccess(HttpSession session, Model model) {
 		log.info("franchiseeLoginSuccess()");
 
-		String nextPage = "/franchisee/member/franchisee_login_ok";
+		String nextPage = "franchisee/member/franchisee_login_ok";
 
 		FranchiseeMemberDto loginedFranchiseeMemberDto = (FranchiseeMemberDto) session
 				.getAttribute("loginedFranchiseeMemberDto");
@@ -121,7 +121,7 @@ public class FranchiseeMemberController {
 	public String franchiseeLoginFail() {
 		log.info("franchiseeLoginFail()");
 
-		String nextPage = "/franchisee/member/franchisee_login_ng";
+		String nextPage = "franchisee/member/franchisee_login_ng";
 
 		return nextPage;
 
@@ -134,7 +134,7 @@ public class FranchiseeMemberController {
 	public String franchiseeLoginApproval() {
 		log.info("franchiseeLoginApproval()");
 
-		String nextPage = "/franchisee/member/franchisee_login_approval";
+		String nextPage = "franchisee/member/franchisee_login_approval";
 
 		return nextPage;
 
@@ -162,7 +162,7 @@ public class FranchiseeMemberController {
 	public String franchiseeModifyForm(HttpSession session) {
 		log.info("FranchiseeModifyForm()");
 
-		String nextPage = "/franchisee/member/franchisee_modify_form";
+		String nextPage = "franchisee/member/franchisee_modify_form";
 
 		return nextPage;
 
@@ -175,12 +175,12 @@ public class FranchiseeMemberController {
 	public String franchiseeModifyConfirm(FranchiseeMemberDto franchiseeMemberDto, HttpSession session) {
 		log.info("franchiseeModifyConfirm()");
 
-		String nextPage = "/franchisee/member/franchisee_modify_ok";
+		String nextPage = "franchisee/member/franchisee_modify_ok";
 
 		FranchiseeMemberDto modifieDto = franchiseeMemberService.franchiseeModifyConfirm(franchiseeMemberDto);
 
 		if (modifieDto == null) {
-			nextPage = "/franchisee/member/franchisee_modify_ng";
+			nextPage = "franchisee/member/franchisee_modify_ng";
 
 		} else {
 			session.setAttribute("loginedFranchiseeMemberDto", modifieDto);
@@ -261,7 +261,7 @@ public class FranchiseeMemberController {
 	public String franchiseeFindPassword() {
 		log.info("franchiseeFindPassword()");
 
-		String nextPage = "/franchisee/member/franchisee_find_password_form";
+		String nextPage = "franchisee/member/franchisee_find_password_form";
 
 		return nextPage;
 
@@ -274,7 +274,7 @@ public class FranchiseeMemberController {
 	public String franchiseeFindPasswordForm(FranchiseeMemberDto franchiseeMemberDto, Model model) {
 		log.info("franchiseeFindPasswordForm()");
 
-		String nextPage = "/franchisee/member/franchisee_find_password_result";
+		String nextPage = "franchisee/member/franchisee_find_password_result";
 
 		FranchiseeMemberDto resultDto = franchiseeMemberService.franchiseeFindPasswordForm(franchiseeMemberDto);
 
@@ -291,7 +291,7 @@ public class FranchiseeMemberController {
 	public String franchiseeFindPasswordConfirm(FranchiseeMemberDto franchiseeMemberDto, Model model) {
 		log.info("franchiseeFindPasswordConfirm()");
 
-		String nextPage = "/franchisee/member/franchisee_find_password_confirm_result";
+		String nextPage = "franchisee/member/franchisee_find_password_confirm_result";
 
 		int findPasswordResult = franchiseeMemberService.franchiseeFindPasswordConfirm(franchiseeMemberDto);
 
@@ -307,7 +307,7 @@ public class FranchiseeMemberController {
 	public String franchiseeModifyPassword() {
 		log.info("franchiseeModifyPassword()");
 
-		String nextPage = "/franchisee/member/franchisee_modify_password_form";
+		String nextPage = "franchisee/member/franchisee_modify_password_form";
 
 		return nextPage;
 
@@ -321,7 +321,7 @@ public class FranchiseeMemberController {
 			Model model) {
 		log.info("franchiseeModifyPasswordConfirm()");
 
-		String nextPage = "/franchisee/member/franchisee_modify_password_result";
+		String nextPage = "franchisee/member/franchisee_modify_password_result";
 
 		FranchiseeMemberDto loginedFranchiseeMemberDto = (FranchiseeMemberDto) session
 				.getAttribute("loginedFranchiseeMemberDto");
@@ -346,7 +346,7 @@ public class FranchiseeMemberController {
 								@RequestParam("fcs_name") String fcs_name, HttpSession session) {
 		log.info("sltStoreHome()");
 
-		String nextPage = "/franchisee/franchisee_home";
+		String nextPage = "franchisee/franchisee_home";
 
 		FranchiseeMemberDto loginedFranchiseeMemberDto = (FranchiseeMemberDto) session
 				.getAttribute("loginedFranchiseeMemberDto");

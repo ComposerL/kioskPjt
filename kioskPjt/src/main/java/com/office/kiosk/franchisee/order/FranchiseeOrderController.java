@@ -31,7 +31,7 @@ public class FranchiseeOrderController {
 	public String getTableOrderList(HttpSession session) {
 		log.info("getTableOrderList()");
 		
-			 String nextPage ="/franchisee/order/get_order_list";
+			 String nextPage ="franchisee/order/get_order_list";
 			 
 			 return nextPage;
 			 
@@ -64,7 +64,7 @@ public class FranchiseeOrderController {
 										HttpSession session, Model model) {
 		log.info("orderListCompleteConfirm()");
 		
-			String nextPage = "/franchisee/order/get_order_list";
+			String nextPage = "franchisee/order/get_order_list";
 		    		   
 		    int updateResult = franchiseeOrderService.orderListCompleteConfirm(fco_ori_no); 		    
 		    
@@ -77,7 +77,7 @@ public class FranchiseeOrderController {
 	public String createOrderList(HttpSession session) {
 		log.info("createOrderList()");
 		
-		String nextPage ="/franchisee/order/create_order_form";
+		String nextPage ="franchisee/order/create_order_form";
 		
 		return nextPage;
 					

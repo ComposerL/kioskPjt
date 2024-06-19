@@ -20,7 +20,7 @@
 
 	<div id="wrap">
 
-	<nav th:replace="~{/franchisee/include/franchisee_include.html::franchisee_nav}">
+	<nav th:replace="~{franchisee/include/franchisee_include.html::franchisee_nav}">
 		</nav>
 		
 		
@@ -28,7 +28,7 @@
 		
 			<div id="section_wrap">
 			
-				<div th:replace="~{/franchisee/include/franchisee_include.html::section_menu_wrap}">
+				<div th:replace="~{franchisee/include/franchisee_include.html::section_menu_wrap}">
 				</div>
 				
 				<p hidden id="fc_no" th:text="${session.loginedFranchiseeMemberDto.fcs_no}"></p>
@@ -182,7 +182,7 @@
 		</section>
 			
 		
-		<footer th:replace="~{/franchisee/include/franchisee_include.html::franchisee_footer}">
+		<footer th:replace="~{franchisee/include/franchisee_include.html::franchisee_footer}">
 		</footer>
 		
 	</div>

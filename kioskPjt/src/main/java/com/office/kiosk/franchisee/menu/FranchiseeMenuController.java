@@ -81,7 +81,7 @@ public class FranchiseeMenuController {
 		public Object getAllMenus() {
 		log.info("getAllMenus()");
 				
-		String nextPage = "/franchisee/menu/franchisee_menu_list";
+		String nextPage = "franchisee/menu/franchisee_menu_list";
 		
 		
 //		FranchiseeMemberDto loginedFranchiseeMemberDto = 

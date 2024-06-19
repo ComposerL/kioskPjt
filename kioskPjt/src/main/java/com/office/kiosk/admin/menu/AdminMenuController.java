@@ -31,7 +31,7 @@ public class AdminMenuController {
 	public String createMenuForm(Model model, AdminMenuCategoryDto adminMenuCategoryDto) {
 		log.info("createMenuForm()");
 
-		String nextPage = "/admin/menu/create_menu_account_form";
+		String nextPage = "admin/menu/create_menu_account_form";
 
 		model.addAttribute("adminMenuCategoryDto", adminMenuCategoryDto);
 
@@ -57,10 +57,10 @@ public class AdminMenuController {
 			int result = adminMenuService.createMenuAccountConfirm(adminMenuDto);
 
 			if (result <= 0)
-				nextPage = "/admin/menu/create_menu_account_ng";
+				nextPage = "admin/menu/create_menu_account_ng";
 
 		} else {
-			nextPage = "/admin/menu/create_menu_account_ng";
+			nextPage = "admin/menu/create_menu_account_ng";
 
 		}
 
@@ -108,7 +108,7 @@ public class AdminMenuController {
 		result = adminMenuService.createMenuCategoryAccountConfirm(adminMenuCategoryDto);
 
 		if (result <= 0) {
-			nextPage = "/admin/menu/create_menu_account_ng";
+			nextPage = "admin/menu/create_menu_account_ng";
 
 		}
 
@@ -122,7 +122,7 @@ public class AdminMenuController {
 	public String menuList() {
 		log.info("menuList()");
 
-		String nextPage = "/admin/menu/admin_menu_list";
+		String nextPage = "admin/menu/admin_menu_list";
 
 		return nextPage;
 
@@ -237,7 +237,7 @@ public class AdminMenuController {
 		
 		
 		 if (result <= 0) {
-		        nextPage = "/admin/menu/modify_menu_account_ng";
+		        nextPage = "admin/menu/modify_menu_account_ng";
 		    }
 		
 		return nextPage;
@@ -257,7 +257,7 @@ public class AdminMenuController {
 
 		if (result <= 0) {
 
-			nextPage = "/admin/menu/delete_menu_account_ng";
+			nextPage = "admin/menu/delete_menu_account_ng";
 		}
 
 		return nextPage;

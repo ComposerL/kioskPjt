@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title th:replace="~{/include/include_title.html::title}"></title>
+<title th:replace="~{include/include_title.html::title}"></title>
 
 <link rel="stylesheet" th:href="@{/css/customer/common.css}">
 <link rel="stylesheet" th:href="@{/css/customer/header.css}">
@@ -14,10 +14,12 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 <script type="text/javascript"
-	th:replace="~{/customer/include/customer_order_view_js.html::customer_order_view_js}"></script>
-<script th:replace="~{/customer/include/customer_home.js.html::js}"
+	th:replace="~{customer/include/customer_order_view_js.html::customer_order_view_js}"></script>
+	
+<script th:replace="~{customer/include/customer_home.js.html::js}"
 	type="text/javascript"></script>
-<script th:replace="~{/customer/include/customer_order_view_modal_js.html::customer_order_view_modal_js}"
+	
+<script th:replace="~{customer/include/customer_order_view_modal_js.html::customer_order_view_modal_js}"
 	type="text/javascript"></script>
 
 

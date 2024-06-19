@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.office.kiosk.franchisee.FranchiseeStoreDto;
-import com.office.kiosk.franchisee.member.FranchiseeMemberDto;
 import com.office.kiosk.franchisee.member.FranchiseeMemberService;
 
 import jakarta.servlet.http.HttpSession;
@@ -68,7 +67,7 @@ public class CustomerController {
 									HttpSession session) {
 		log.info("franchiseeStoreLogin()");
 		
-		String nextPage = "/customer/franchisee_store_login_result";
+		String nextPage = "customer/franchisee_store_login_result";
 		
 		FranchiseeStoreDto loginedFranchiseeStoreDto = franchiseeMemberService.franchiseeLoginConfirmForCustomer(franchiseeStoreDto);
 		loginedFranchiseeStoreDto.setFcs_no(franchiseeStoreDto.getFcs_no());
@@ -89,7 +88,7 @@ public class CustomerController {
 									Model model) {
 		log.info("customerOrderView()");
 		
-		String nextPage = "/customer/customer_order_view";
+		String nextPage = "customer/customer_order_view";
 		
 		model.addAttribute("fco_packaging", fco_packaging);	// 매장 or 포장 유무
 		
@@ -104,7 +103,7 @@ public class CustomerController {
 	public String sotreLoginResultView(HttpSession session) {
 		log.info("sotreLoginResultView()");
 		
-		String nextPage = "/customer/franchisee_store_login_result";
+		String nextPage = "customer/franchisee_store_login_result";
 		
 		return nextPage;
 	

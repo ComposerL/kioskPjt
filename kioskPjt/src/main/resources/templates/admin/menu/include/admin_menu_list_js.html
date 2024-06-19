@@ -247,7 +247,7 @@ function ajax_get_all_menus(pageNum = 1) {
 					appendTag += adminMenuDtos[index].fc_menu_no;
 					appendTag += '</li>';
 					appendTag += '<li class="fc_menu_img_name">';
-					appendTag += '<img src="http://14.42.124.93:8091/kioskUploadImg/' + adminMenuDtos[index].fc_menu_img_name + '">';
+					appendTag += '<img src="http://127.0.0.1:8091/kioskUploadImg/' + adminMenuDtos[index].fc_menu_img_name + '">';
 					appendTag += '</li>';
 					appendTag += '<li class="fc_menu_name">';
 					appendTag += adminMenuDtos[index].fc_menu_name;
@@ -405,7 +405,7 @@ function ajax_get_menus_by_category(fcmc_no, pageNum = 1) {
 					appendTag += adminMenuDtos[index].fc_menu_no;
 					appendTag += '</li>';
 					appendTag += '<li class="fc_menu_img_name">';
-					appendTag += '<img src="http://14.42.124.93:8091/kioskUploadImg/' + adminMenuDtos[index].fc_menu_img_name + '">';
+					appendTag += '<img src="http://127.0.0.1:8091/kioskUploadImg/' + adminMenuDtos[index].fc_menu_img_name + '">';
 					appendTag += '</li>';
 					appendTag += '<li class="fc_menu_name">';
 					appendTag += adminMenuDtos[index].fc_menu_name;
@@ -510,7 +510,7 @@ function ajax_getSelectMenuInfo(fc_menu_no) {
 				
 				$("div.modify_menu_wrap img.img_section").attr(
 						"src",
-						"http://14.42.124.93:8091/kioskUploadImg/"
+						"http://127.0.0.1:8091/kioskUploadImg/"
 								+ data.fc_menu_img_name);
 
 				$("div.modify_menu_wrap input[name='fc_menu_no']").attr(

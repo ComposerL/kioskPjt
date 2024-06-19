@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 
-<title th:replace="~{/include/include_title.html::title}"></title>
+<title th:replace="~{include/include_title.html::title}"></title>
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 <script type="text/javascript" th:src="@{/js/franchisee/order/franchisee_order.js}"></script>
 
-<script type="text/javascript" th:replace="~{/franchisee/order/include/franchisee_order_list_js.html::js}"></script>
-	
 <script type="text/javascript" th:src="@{/js/franchisee/member/franchisee_member.js}"></script>
+
+<script type="text/javascript" th:replace="~{franchisee/order/include/franchisee_order_list_js.html::js}"></script>
+	
 
 <link rel="stylesheet" th:href="@{/css/franchisee/common.css}">
 <link rel="stylesheet" th:href="@{/css/franchisee/franchisee_include.css}">
@@ -23,14 +24,14 @@
 
 	<div id="wrap">
 
-	<nav th:replace="~{/franchisee/include/franchisee_include.html::franchisee_nav}">
+	<nav th:replace="~{franchisee/include/franchisee_include.html::franchisee_nav}">
 		</nav>
 
 		<section>
 
 			<div id="section_wrap">
 
-				<div th:replace="~{/franchisee/include/franchisee_include.html::section_menu_wrap}">
+				<div th:replace="~{franchisee/include/franchisee_include.html::section_menu_wrap}">
 				</div>
 				
 				<div class="pos_section_main">
@@ -82,7 +83,7 @@
 		</section>
 
 
-		<footer th:replace="~{/franchisee/include/franchisee_include.html::franchisee_footer}">
+		<footer th:replace="~{franchisee/include/franchisee_include.html::franchisee_footer}">
 		</footer>
 
 	</div>

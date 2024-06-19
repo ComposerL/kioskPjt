@@ -140,8 +140,10 @@ public class FranchiseeOrderService {
 		FranchiseeOrderDto oriNoDto = iFranchiseeOrderDao.getOriNo();
 		int fco_ori_no;
 		if(oriNoDto == null) {
+			log.info("oriNoDto is null default value fco_ori_no=1 changed");
 			fco_ori_no = 1;
 		} else {
+			log.info("oriNoDto is not null !!");
 			fco_ori_no = oriNoDto.getFco_no() + 1;
 		}
 		

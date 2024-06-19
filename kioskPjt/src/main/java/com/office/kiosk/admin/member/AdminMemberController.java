@@ -33,7 +33,7 @@ public class AdminMemberController {
 	public String adminMemberAccountForm() {
 		log.info("adminMemberAccountForm()");
 		
-		String nextPage = "/admin/member/create_admin_account_form";
+		String nextPage = "admin/member/create_admin_account_form";
 	
 		return nextPage;
 		
@@ -46,12 +46,12 @@ public class AdminMemberController {
 	public String createadminAccountConfirm(AdminMemberDto adminMemberDto, Model model) {
 		log.info("createadminAccountConfirm()");
 		
-		String nextPage = "/admin/member/create_admin_account_ok";
+		String nextPage = "admin/member/create_admin_account_ok";
 		
 		int result = adminMemberService.createAdminAccountConfirm(adminMemberDto);
 		
 		if (result <= 0) 
-			nextPage = "/admin/member/create_admin_account_ng";
+			nextPage = "admin/member/create_admin_account_ng";
 		
 		return nextPage;
 		
@@ -64,7 +64,7 @@ public class AdminMemberController {
 	public String adminLoginForm() {
 		log.info("adminLoginForm()");
 		
-		String nextPage = "/admin/member/admin_login_form";
+		String nextPage = "admin/member/admin_login_form";
 	
 		return nextPage;
 		
@@ -77,7 +77,7 @@ public class AdminMemberController {
 	public String adminLoginConfirm(AdminMemberDto adminMemberDto, HttpSession session) {
 		log.info("adminLoginConfirm()");
 		
-		String nextPage = "/admin/member/admin_login_ok";
+		String nextPage = "admin/member/admin_login_ok";
 		
 		AdminMemberDto loginedAdminMemberDto = 
 				adminMemberService.adminLoginConfirm(adminMemberDto);
@@ -87,7 +87,7 @@ public class AdminMemberController {
 			session.setMaxInactiveInterval(60 * 30);
 			
 		} else {
-			nextPage = "/admin/member/admin_login_ng";
+			nextPage = "admin/member/admin_login_ng";
 			
 		}
 	
@@ -102,7 +102,7 @@ public class AdminMemberController {
 	public String adminLogoutConfirm(HttpSession session) {
 		log.info("adminLogoutConfirm()");
 		
-		String nextPage = "/admin/admin_home";
+		String nextPage = "admin/admin_home";
 		
 		session.removeAttribute("loginedAdminMemberDto");
 	
@@ -116,7 +116,7 @@ public class AdminMemberController {
 	public String adminMemberModifyForm(HttpSession session) {
 		log.info("adminMemberModifyForm()");
 		
-		String nextPage = "/admin/member/admin_modify_form";
+		String nextPage = "admin/member/admin_modify_form";
 	
 		return nextPage;
 	
@@ -129,13 +129,13 @@ public class AdminMemberController {
 	public String adminModifyConfirm(AdminMemberDto adminMemberDto, HttpSession session) {
 		log.info("adminModifyConfirm()");
 		
-		String nextPage = "/admin/member/admin_modify_ok";
+		String nextPage = "admin/member/admin_modify_ok";
 		
 		AdminMemberDto modifiedDTo = 
 				adminMemberService.adminModifyConfirm(adminMemberDto);
 		
 		if (modifiedDTo == null) {
-			nextPage = "/admin/member/admin_modify_ng";
+			nextPage = "admin/member/admin_modify_ng";
 			
 		} else {
 			session.setAttribute("loginedAdminMemberDto", modifiedDTo);
@@ -170,7 +170,7 @@ public class AdminMemberController {
 	public String franchiseeList() {
 		log.info("franchiseeList()");
 		
-		String nextPage = "/admin/member/franchisee_list";
+		String nextPage = "admin/member/franchisee_list";
 		
 		return nextPage;
 		
@@ -243,16 +243,16 @@ public class AdminMemberController {
 	public String adminList(Model model, HttpSession session) {
 		log.info("adminList()");
 		
-		String nextPage = "/admin/member/admin_list";
+		String nextPage = "admin/member/admin_list";
 		
 		AdminMemberDto loginedAdminMemberDto = 
 				(AdminMemberDto) session.getAttribute("loginedAdminMemberDto");
 		
 		if (loginedAdminMemberDto == null || !loginedAdminMemberDto.getAm_id().equals("super admin")) {
-			nextPage = "/admin/member/admin_list_fail";
+			nextPage = "admin/member/admin_list_fail";
 			
 		} else if (loginedAdminMemberDto.getAm_id().equals("super admin")) {
-			nextPage = "/admin/member/admin_list";
+			nextPage = "admin/member/admin_list";
 			
 		} 
 		
@@ -331,7 +331,7 @@ public class AdminMemberController {
 	public String storeList(Model model) {
 		log.info("storeList()");
 		
-		String nextPage = "/admin/member/franchisee_store_list";
+		String nextPage = "admin/member/franchisee_store_list";
 				
 		return nextPage;
 		
@@ -358,7 +358,7 @@ public class AdminMemberController {
 	public String createFranchiseeStore() {
 		log.info("createFranchiseeStore()");
 		
-		String nextPage = "/admin/member/create_franchisee_store_form";
+		String nextPage = "admin/member/create_franchisee_store_form";
 		
 		return nextPage;
 		
